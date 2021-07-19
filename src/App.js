@@ -7,7 +7,7 @@ import {
   Link
 } from "react-router-dom"
 
-import { Container, Navbar, Button, Form } from 'react-bootstrap'
+import { Container, Navbar, Button, Form, Row, Col } from 'react-bootstrap'
 
 import Login from './components/login/Login'
 import Register from './components/register/Register'
@@ -24,10 +24,18 @@ export default function App(props) {
               Previously
             </Link>
 
-            <Form className="d-flex">
-              <Link to="/login" className="btn btn-outline-secondary bg-light">Log In</Link>
-              <Link to="/register"  className="btn btn-outline-primary bg-light">Register</Link>
-            </Form>
+            <Row>
+              <Col>
+                <Link to="/login" className="btn btn-outline-secondary bg-light btn-sm">
+                  Log In
+                </Link>
+              </Col>
+              <Col>
+                <Link to="/register" className="btn btn-outline-primary bg-light btn-sm">
+                  Register
+                </Link>
+              </Col>
+            </Row>
           </Container>
         </Navbar>
         <Switch>
