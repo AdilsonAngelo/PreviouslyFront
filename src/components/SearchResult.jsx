@@ -15,17 +15,16 @@ export default props => {
 
     useEffect(() => {
         let params = qs.parse(props.location.search.replace('?', ''))
-        let page = 1
+        let pageNum = 1
         if (!!params.page && Number(params.page) > 0) {
-            page = params.page
+            pageNum = params.page
         }
-        console.log('PAGE: ', Number(params.page))
 
         if (params.query?.length < 4) { setShows([]); return }
 
         setQuery(params.query)
 
-        previously.search(params.query, page)
+        previously.search(params.query, pageNum)
             .then(res => {
                 setPage(res.data.page)
                 setPages(Math.ceil(res.data.total / 10))
@@ -52,14 +51,9 @@ export default props => {
     }
 
     const loadPages = () => {
-        console.log(pages)
-        console.log(page)
-
         var items = [...Array(pages).keys()].map(i => i + 1);
         let start = (page - 3 < 0) ? 0 : page - 3
         items = items.slice(start, start + 5)
-
-        console.log(items)
 
         return <>
             {

@@ -94,9 +94,9 @@ export default function App(props) {
         <Switch>
           <ProtectedRoute path="/" exact component={Shows} />
           <ProtectedRoute path="/search" component={SearchResult} />
+          <ProtectedRoute path="/shows/:imdbID" component={Episodes} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/shows/:imdbID" component={Episodes} />
         </Switch>
       </div>
     </Router>

@@ -25,7 +25,6 @@ class Auth {
     }
 
     static logOut() {
-        console.log(sessionStorage.getItem("previouslyAccessToken"))
         sessionStorage.removeItem("previouslyAccessToken")
         window.location.reload();
     }
