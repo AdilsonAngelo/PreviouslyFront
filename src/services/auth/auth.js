@@ -41,6 +41,13 @@ class Auth {
             })
     }
 
+    static intercept(request) {
+        return request
+            .catch(err => {
+                if (err.response.status === 401) this.logOut()
+                console.log(err.response)
+            })
+    }
 }
 
 export default Auth
