@@ -1,23 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Container, Form, Button, Row, Card } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import Auth from '../../services/auth/auth'
 
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(8).required(),
-    confirm_password: yup.string().oneOf([yup.ref("password"), null], "passwords must match")
+    password_confirmation: yup.string().oneOf([yup.ref("password"), null], "passwords must match")
 })
 
 export default props => {
+    const [showErrorMessage, setShowErrorMessage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {
+        Auth.register(data)
+            .then(() => { window.location.replace('/') })
+            .catch(err => {
+                if (!!err.response?.data?.error?.errors?.email) {
+                    setShowErrorMessage(true)
+                    setErrorMessage('Email: ' + err.response.data.error.errors.email[0])
+                } else {
+                    setShowErrorMessage(true)
+                    setErrorMessage('Unable to register: check logs')
+                    console.log(err.response)
+                }
+            })
+    }
 
     return (
         <div className="component">
@@ -40,12 +56,15 @@ export default props => {
                                     </Form.Group>
                                     <Form.Group className="mb-3">
                                         <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control {...register("confirm_password")} type="password" name="confirm_password" />
-                                        <p className="text-danger"> {errors.confirm_password?.message} </p>
+                                        <Form.Control {...register("password_confirmation")} type="password" name="password_confirmation" />
+                                        <p className="text-danger"> {errors.password_confirmation?.message} </p>
                                     </Form.Group>
                                     <Button variant="success" type="submit">
                                         Submit
                                     </Button>
+                                    <Card.Footer className="text-danger">
+                                        {showErrorMessage && errorMessage}
+                                    </Card.Footer>
                                 </Form>
 
                             </Card.Body>
