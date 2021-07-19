@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
+
+import { Container, Navbar, Button, Form } from 'react-bootstrap'
+
+import Login from './components/login/Login'
+import Register from './components/register/Register'
+import Shows from './components/shows/Shows'
+
+
+export default function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Router>
+      <div className="App">
+        <Navbar className="navbar navbar-dark bg-dark shadow-sm">
+          <Container>
+            <Link to="/" className="navbar-brand">
+              Previously
+            </Link>
 
-export default App;
+            <Form className="d-flex">
+              <Link to="/login" className="btn btn-outline-secondary bg-light">Log In</Link>
+              <Link to="/register"  className="btn btn-outline-primary bg-light">Register</Link>
+            </Form>
+          </Container>
+        </Navbar>
+        <Switch>
+          <Route path="/" exact component={Shows} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
+      </div>
+    </Router>
+  )
+}
