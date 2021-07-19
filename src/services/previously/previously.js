@@ -28,6 +28,13 @@ export default {
         return Auth.intercept(Axios.post(url, payload, options))
     },
 
+    unmarkEpisode(epCode) {
+        let url = baseUrl + '/episodes/unmark?'
+        let payload = {episode_code: epCode}
+        let options = { headers: { Authorization: sessionStorage.getItem('previouslyAccessToken') } }
+        return Auth.intercept(Axios.post(url, payload, options))
+    },
+
     listMarkedEpisodes(show_code) {
         let url = baseUrl + '/episodes/marked?' + qs.stringify({tvshow_code: show_code})
         let options = { headers: { Authorization: sessionStorage.getItem('previouslyAccessToken') } }

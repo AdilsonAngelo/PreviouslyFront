@@ -40,14 +40,14 @@ export default props => {
             })
 
         previously.listMarkedEpisodes(showImdbId)
-        .then(res => {
-            res.data.forEach((ep) => {
-                setMarked(marked.add(ep.imdb_id))
+            .then(res => {
+                res.data.forEach((ep) => {
+                    setMarked(marked.add(ep.imdb_id))
+                })
             })
-        })
-        .catch(err => {
-            console.log(err.response)
-        })
+            .catch(err => {
+                console.log(err.response)
+            })
     }, [])
 
 
@@ -100,16 +100,28 @@ export default props => {
 
     const markEpisode = (epCode) => {
         setLoading(true)
-        previously.markEpisode(epCode)
-            .then(res => {
-                setLoading(true)
-                setMarked(marked.add(epCode))
-                setSelectEpisodeError(false)
-                setLoading(false)
-            })
-            .catch(err => {
-                setSelectEpisodeError(true)
-            })
+
+        if (!marked.has(epCode)) {
+            previously.markEpisode(epCode)
+                .then(res => {
+                    setMarked(marked.add(epCode))
+                    setSelectEpisodeError(false)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setSelectEpisodeError(true)
+                })
+        } else {
+            previously.unmarkEpisode(epCode)
+                .then(res => {
+                    marked.delete(epCode)
+                    setSelectEpisodeError(false)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setSelectEpisodeError(true)
+                })
+        }
     }
 
     return (
@@ -143,13 +155,6 @@ export default props => {
                     </Col>
                 </Row>
             </Container>
-
-            {/* <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Modal body content</Modal.Body>
-            </Modal> */}
         </div>
     )
 }
