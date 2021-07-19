@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './App.css'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +19,8 @@ import Shows from './components/shows/Shows'
 export default function App(props) {
   return (
     <Router>
-      <div className="App">
+      <div className="background"></div>
+      <div>
         <Navbar className="navbar navbar-dark bg-dark shadow-sm">
           <Container>
             <Link to="/" className="navbar-brand">
