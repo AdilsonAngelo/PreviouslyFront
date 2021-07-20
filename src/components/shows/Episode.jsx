@@ -12,7 +12,7 @@ export default props => {
             :
             "show pb-1 pt-1"
         }
-        key={props.imdbID}>
+        key={props.imdb_id}>
             <Col className="col-2 align-self-center">
                 {props.Episode}
             </Col>

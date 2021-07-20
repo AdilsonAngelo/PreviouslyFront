@@ -18,7 +18,7 @@ export default props => {
 
     useEffect(() => {
         let params = qs.parse(props.location.search.replace('?', ''))
-        let showImdbId = props.match.params?.imdbID
+        let showImdbId = props.match.params?.imdb_id
         let seasonNum = 1
         if (!!params.season && Number(params.season) > 0) {
             seasonNum = params.season
@@ -142,6 +142,7 @@ export default props => {
                                     {...episode}
                                     marked={mark}
                                     id={episode.imdbID}
+                                    key={episode.imdbID}
                                     onClick={() => markEpisode(episode.imdbID)} />
                             </>
                         )

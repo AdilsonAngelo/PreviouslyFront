@@ -86,10 +86,10 @@ export default props => {
 
     return (
         <div className="component">
-            <Container className="container-fluid mt-5 bg-dark">
+            <Container className="container-fluid mt-5 pt-1 bg-dark">
                 {
                     shows.map(show => {
-                        return <Show {...show} onClick={() => window.location.replace('/shows/' + show.imdbID)} />
+                        return <Show {...show} onClick={() => window.location.replace('/shows/' + show.imdb_id)} />
                     })
                 }
                 <Row className="mt-5">

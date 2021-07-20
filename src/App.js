@@ -31,7 +31,7 @@ const schema = yup.object().shape({
 
 export default function App(props) {
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema)
   })
 
@@ -94,7 +94,7 @@ export default function App(props) {
         <Switch>
           <ProtectedRoute path="/" exact component={Shows} />
           <ProtectedRoute path="/search" component={SearchResult} />
-          <ProtectedRoute path="/shows/:imdbID" component={Episodes} />
+          <ProtectedRoute path="/shows/:imdb_id" component={Episodes} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
         </Switch>
